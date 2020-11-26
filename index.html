@@ -17,10 +17,8 @@
             </div>
             <div class="product-info">
                 <h1>{{product}}</h1>
-                <p v-if="inventory >= 10">In Stock</p>
-                <!-- v-show make In stock as display none otherwise v-if -->
-                <p v-else-if="inventory < 10 && inventory > 0 ">Almost Sold out</p>
-                <p v-else>Out of Stock</p>
+                <p v-if="inStock">In Stock</p>
+                <p v-else v-bind:class="{ lineThrough: !inStock }">Out of Stock</p>
 
                 <ul>
                     <li v-for="detail in details"> {{detail}} </li>
@@ -29,11 +27,18 @@
                     <li v-for="size in sizes"> {{size}} </li>
                 </ul>
 
-                <div v-for="variant in variants" :key="variant.variantColor">
-                    <p v-on:mouseover="updateProduct(variant.variantImage)"> {{variant.variantColor}} </p>
+                <div v-for="variant in variants" 
+                    :key="variant.variantColor"
+                    class="color-box" 
+                    v-bind:style="{backgroundColor: variant.variantColor}"
+                    v-on:mouseover="updateProduct(variant.variantImage)">
                 </div>
-                <button v-on:click="addToCart">Ass to Cart</button>
-                <button v-on:click="RmfromCart">Remove from Cart</button>
+                <button v-on:click="addToCart" 
+                    :disabled="!inStock" 
+                    :class="{ disabledButton: !inStock }">Add to Cart</button>
+                <button v-on:click="RmfromCart" 
+                    :disabled="!inStock"
+                    :class="{ disabledButton: !inStock }">Remove from Cart</button>
                 <div class="cart">
                     <p>Cart ( {{cart}} )</p>
                 </div>

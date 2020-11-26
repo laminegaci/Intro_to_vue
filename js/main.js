@@ -3,8 +3,8 @@ var app = new Vue({
     data: { 
         product: 'T-shirt',
         image: 'images/vmSocks-green-onWhite.jpg',
-        inStock: true,
-        inventory: 10,
+        inStock: false,
+        inventory: 0,
         details: ["80% cotton", "20% polyster", "Gender-neutral"],
         variants: [
             {
