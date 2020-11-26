@@ -16,22 +16,22 @@
                 <!-- shorthand :src -->
             </div>
             <div class="product-info">
-                <h1>{{product}}</h1>
+                <h1>{{title }}</h1>
                 <p v-if="inStock">In Stock</p>
                 <p v-else v-bind:class="{ lineThrough: !inStock }">Out of Stock</p>
-
+                <p v-bind:class="{ lineRed: !variants }">{{ sale }}</p>
                 <ul>
-                    <li v-for="detail in details"> {{detail}} </li>
+                    <li v-for="(detail,index) in details"> {{detail}} - {{index}} </li>
                 </ul>
                 <ul>
                     <li v-for="size in sizes"> {{size}} </li>
                 </ul>
 
-                <div v-for="variant in variants" 
+                <div v-for="(variant,index) in variants" 
                     :key="variant.variantColor"
                     class="color-box" 
-                    v-bind:style="{backgroundColor: variant.variantColor}"
-                    v-on:mouseover="updateProduct(variant.variantImage)">
+                    v-bind:style="{backgroundColor: variant.variantColor, cursor: 'pointer'}"
+                    v-on:click="updateProduct(index)">
                 </div>
                 <button v-on:click="addToCart" 
                     :disabled="!inStock" 

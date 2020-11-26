@@ -2,20 +2,24 @@ var app = new Vue({
     el: '#app',
     data: { 
         product: 'T-shirt',
-        image: 'images/vmSocks-green-onWhite.jpg',
-        inStock: false,
+        brand: 'Vue Mastery',
+        selectedVariant: 0,
         inventory: 0,
         details: ["80% cotton", "20% polyster", "Gender-neutral"],
         variants: [
             {
-                'varintId': 1,
+                'variantId': 1,
                 'variantColor': "green",
-                'variantImage': "images/vmSocks-green-onWhite.jpg"
+                'variantImage': "images/vmSocks-green-onWhite.jpg",
+                'variantQuantity': 10,
+                'variantOnSale': true
             },
             {
-                'varintId': 2,
+                'variantId': 2,
                 'variantColor': "blue",
-                'variantImage': "images/vmSocks-blue-onWhite.jpg"
+                'variantImage': "images/vmSocks-blue-onWhite.jpg",
+                'variantQuantity': 0,
+                'variantOnSale': false
             }
         ],
         sizes: ['S','M','L','XL','XXL'],
@@ -28,8 +32,26 @@ var app = new Vue({
         RmfromCart: function () {
             this.cart -= 1 
         },
-        updateProduct: function (variantImage) {
-            this.image = variantImage 
+        updateProduct: function (index) {
+            this.selectedVariant = index
+            console.log(index) 
         }
+    },
+    computed: {
+        title() {
+            return this.brand + ' ' +  this.product
+        },
+        image() {
+            return this.variants[this.selectedVariant].variantImage
+        },
+        inStock() {
+            return this.variants[this.selectedVariant].variantQuantity
+        },
+        sale() {
+            if (this.variants[this.selectedVariant].variantOnSale) {
+              return this.brand + ' ' + this.product + ' are on sale!'
+            } 
+              return  this.brand + ' ' + this.product + ' are not on sale'
+          }
     }
 })

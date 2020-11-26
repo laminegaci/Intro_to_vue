@@ -62,3 +62,6 @@ button {
 .lineThrough {
   text-decoration: line-through;
 }
+.lineRed {
+  color: red;
+}
