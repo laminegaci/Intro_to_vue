@@ -1,3 +1,14 @@
+Vue.component('product-review', {
+    template: `
+        <input type="text" v-model="name">
+    `,
+    data() {
+        return {
+            name: null
+        }
+    }
+});
+
 Vue.component("product-details", {
     props: {
         details: {
@@ -49,14 +60,12 @@ Vue.component("product", {
                 <button v-on:click="addToCart" 
                     :disabled="!inStock" 
                     :class="{ disabledButton: !inStock }">Add to Cart</button>
-                <button v-on:click="RmfromCart" 
-                    :disabled="!inStock"
-                    :class="{ disabledButton: !inStock }">Remove from Cart</button>
-                <div class="cart">
-                    <p>Cart ( {{cart}} )</p>
-                </div>
-                 
+                <button v-on:click="removeFromCart" 
+                    :disabled="!inStock" 
+                    :class="{ disabledButton: !inStock }">Remove from Cart</button>  
             </div>
+
+            <product-review></product-review>
         </div>
     `,
     data() {
@@ -82,16 +91,16 @@ Vue.component("product", {
                     variantOnSale: false,
                 },
             ],
-            sizes: ["S", "M", "L", "XL", "XXL"],
-            cart: 0
+            sizes: ["S", "M", "L", "XL", "XXL"]
+
         };
     },
     methods: {
         addToCart: function () {
-            this.cart += 1;
+            this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId)
         },
-        RmfromCart: function () {
-            this.cart -= 1;
+        removeFromCart: function () {
+            this.$emit('remove-from-cart', this.variants[this.selectedVariant].variantId)
         },
         updateProduct: function (index) {
             this.selectedVariant = index;
@@ -127,5 +136,18 @@ var app = new Vue({
     el: "#app",
     data: {
         premium: true,
+        cart: []
     },
+    methods: {
+        updateCart: function (id) {
+            this.cart.push(id)
+        },
+        removeItem: function (id) {
+            for (var i = this.cart.length - 1; i >= 0; i--) {
+                if (this.cart[i] === id) {
+                    this.cart.splice(i, 1);
+                }
+            }
+        }
+    }
 });
