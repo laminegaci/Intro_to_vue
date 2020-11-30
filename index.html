@@ -1,54 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Intro to vuejs</title>
     <link rel="stylesheet" href="css/main.css">
-    
-</head>
-<body>
-    <div class="nav-bar"><h1 style="text-align: center;">Introduction to vuejs</h1></div>
-    <div id="app" style="width: 100%;">
-        <div class="product">
-            <div class="product-image">
-                <img v-bind:src="image" alt="">
-                <!-- shorthand :src -->
-            </div>
-            <div class="product-info">
-                <h1>{{title }}</h1>
-                <p v-if="inStock">In Stock</p>
-                <p v-else v-bind:class="{ lineThrough: !inStock }">Out of Stock</p>
-                <p v-bind:class="{ lineRed: !variants }">{{ sale }}</p>
-                <ul>
-                    <li v-for="(detail,index) in details"> {{detail}} - {{index}} </li>
-                </ul>
-                <ul>
-                    <li v-for="size in sizes"> {{size}} </li>
-                </ul>
 
-                <div v-for="(variant,index) in variants" 
-                    :key="variant.variantColor"
-                    class="color-box" 
-                    v-bind:style="{backgroundColor: variant.variantColor, cursor: 'pointer'}"
-                    v-on:click="updateProduct(index)">
-                </div>
-                <button v-on:click="addToCart" 
-                    :disabled="!inStock" 
-                    :class="{ disabledButton: !inStock }">Add to Cart</button>
-                <button v-on:click="RmfromCart" 
-                    :disabled="!inStock"
-                    :class="{ disabledButton: !inStock }">Remove from Cart</button>
-                <div class="cart">
-                    <p>Cart ( {{cart}} )</p>
-                </div>
-                 
-            </div>
-        </div>
+</head>
+
+<body>
+    <div class="nav-bar">
+        <h1 style="text-align: center;margin:0;">Introduction to vuejs</h1>
+    </div>
+
+    <div id="app" style="width: 100%;">
+        <product :premium="premium"></product>
     </div>
 
 
     <script src="js/vue.js"></script>
     <script src="js/main.js"></script>
 </body>
+
 </html>
