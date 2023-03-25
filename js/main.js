@@ -210,9 +210,13 @@ var app = new Vue({
     el: "#app",
     data: {
         premium: true,
-        cart: []
+        cart: [],
+        goodmessage : 'hollo vue js'
     },
     methods: {
+        reverseMessage : function () {
+            this.goodmessage = this.goodmessage.split('').reverse().join('');
+        },
         updateCart: function (id) {
             this.cart.push(id)
         },

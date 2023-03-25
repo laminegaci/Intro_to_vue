@@ -13,9 +13,12 @@
     <div class="nav-bar">
         <h1 style="text-align: center;margin:0;">Introduction to vuejs</h1>
     </div>
-
+    
     <div id="app" style="width: 100%;">
+        <h1>{{ goodmessage }}</h1>  
+        <button v-on:click="reverseMessage">click to inverse</button>
         <div class="cart">
+            
             <p>Cart ( {{cart.length}} )</p>
         </div>
         <product :premium="premium" @add-to-cart="updateCart" @remove-from-cart="removeItem"></product>
